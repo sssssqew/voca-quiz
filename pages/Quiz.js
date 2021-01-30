@@ -1,9 +1,9 @@
-const problem=(function(){
+const Quiz=(function(){
     'use strict'
 
     // 새로운 객체 주소로 변경하므로 let으로 선언하기 
     let state={
-        title: "Problem",
+        title: "Quiz",
         person: 'I'
     }
     let props={}
@@ -84,4 +84,4 @@ const problem=(function(){
     return {draw}
 })()
 
-export default problem
+export default Quiz

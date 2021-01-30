@@ -2,8 +2,8 @@ import pages from './pages/index.js'
 
 // 이동할 페이지 목록을 저장한 객체
 window.routes={
-    '/': (params)=>pages.problem.draw(params),
-    'score/': (params)=>pages.score.draw(params)
+    '/': (params)=>pages.Quiz.draw(params),
+    'score/': (params)=>pages.Score.draw(params)
 }
 
 // 실제 페이지 변경과 URL 변경이 실행되는 함수

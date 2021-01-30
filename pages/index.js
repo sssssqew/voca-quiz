@@ -1,12 +1,12 @@
-import problem from "./problem.js"
-import score from "./score.js"
+import Quiz from "./Quiz.js"
+import Score from "./Score.js"
 
 const pages=(function(){
     'use strict'
 
     return {
-        problem,
-        score
+        Quiz,
+        Score
     }
 })()
 

@@ -1,4 +1,4 @@
-const score =(function(){
+const Score =(function(){
     'use strict'
 
     // 새로운 객체 주소로 변경하므로 let으로 선언하기 
@@ -52,4 +52,4 @@ const score =(function(){
     return {draw}
 })()
 
-export default score 
+export default Score 
