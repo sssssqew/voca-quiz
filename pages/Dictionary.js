@@ -1,3 +1,5 @@
+import Nav from '../components/Nav.js'
+
 const Dictionary=(function(){
   "use strict"
 
@@ -19,12 +21,17 @@ const Dictionary=(function(){
     props={...properties}
   }
   function getTemplete(){
-    return (`<div>Dictionary</div>`)
+    return (`<div class="dictionary-container">
+              <div id="dictionary-nav"></div>
+              <div class="dictionary-contents">사전</div>
+            </div>`)
   }
   function render(){
     const template = getTemplete()
     const renderPosition=document.getElementById(props.rendorDOMId)
     renderPosition.innerHTML=template
+
+    Nav.draw({rendorDOMId: "dictionary-nav", bgColor: "black", textColor: "rgb(190, 190, 190)"})
   }
   function addHandlers(){}
 

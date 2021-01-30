@@ -30,11 +30,11 @@ const Nav=(function(){
                   <div class="nav-menu-text">Quiz</div>
                   <div class="nav-menu-guide">solve vocaburary</div>
                 </div>
-                <div class="nav-menu-item" data-url="score/">
+                <div class="nav-menu-item" data-url="/score">
                   <div class="nav-menu-text">Score</div>
                   <div class="nav-menu-guide">how many you get right</div>
                 </div>
-                <div class="nav-menu-item" data-url="dictionary/">
+                <div class="nav-menu-item" data-url="/dictionary">
                   <div class="nav-menu-text">Dictionary</div>
                   <div class="nav-menu-guide">view words you added</div>
                 </div>

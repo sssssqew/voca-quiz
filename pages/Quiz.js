@@ -39,9 +39,9 @@ const Quiz=(function(){
     function getTemplete(){
         const {title, person}=state
         return (`<div class="quiz-container">
-            <div id="quiz-nav"></div>
-            <div class="quiz-contents">컨텐츠</div>
-        </div>`)
+                    <div id="quiz-nav"></div>
+                    <div class="quiz-contents">퀴즈</div>
+                </div>`)
     }
     function render(){
         const template = getTemplete()
