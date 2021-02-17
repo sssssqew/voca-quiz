@@ -15,27 +15,33 @@ const Button=function(){
 
   // TODO: 이벤트 핸들러 
   function handleClick(){
-    props.onClick()
+    if(props.onClick){
+      props.onClick()
+    }
   }
 
   function init(properties){
     props={...properties}
   }
   function getTemplete(){
-    const { width, height, bgColor, textColor, borderRadius, text, textSize } = props
-    return (`<button class="button-style" id="button-el"
+    const { uuid, width, height, bgColor, textColor, borderRadius, text, textSize } = props
+    return (`<button class="button-group" id="button-${uuid}"
               style="width: ${width?width:'122'};height:${height?height:'40'};font-size:${textSize?textSize: '10px'};
               background-color:${bgColor?bgColor:'rgb(158,158,158)'};color:${textColor?textColor:'white'};
               border-radius:${borderRadius?borderRadius:'15'};cursor:pointer;outline:none">
               ${text?text:"button"}</button>`)
   }
+  // innerHTML += template 문제
+  // 각각의 버튼을 생성할때마다 위 코드를 실행하는데 
+  // 실행할때마다 innerHTML을 새로 찍어내면서 기존에 연결한 이벤트리스너가 지워짐
+  // 그래서 여러개의 컴포넌트를 생성하는 경우는 insertAdjacentHTML을 사용하기
   function render(){
     const template = getTemplete()
     const renderPosition=document.getElementById(props.rendorDOMId)
-    renderPosition.innerHTML+=template // 여러개의 컴포넌트를 추가하는 경우 + 사용함
+    renderPosition.insertAdjacentHTML('beforeend', template) // 여러개의 컴포넌트를 추가하는 경우 + 사용함
   }
   function addHandlers(){
-    document.getElementById("button-el").addEventListener('click', handleClick)
+    document.getElementById(`button-${props.uuid}`).addEventListener('click', handleClick)
   }
 
   function doSomethingAfterRendering(callback){
