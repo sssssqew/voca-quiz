@@ -13,7 +13,7 @@ window.routes={
 
 // 실제 페이지 변경과 URL 변경이 실행되는 함수
 window.router=(url, params)=>{
-    // 앞으로가기, 뒤로가기인 경우 popstate하면서 URL을 이미 변경했으므로 router함수에서 다시 변경할 필요가 없음
+    // 앞으로가기, 뒤로가기인 경우 popstate 이벤트가 발생해서 URL을 이미 변경했으므로 router함수에서 다시 URL을 변경할 필요가 없음
     if(!window.popped){
         window.history.pushState({url:url, params:params}, "", url) // URL 변경
     }else{

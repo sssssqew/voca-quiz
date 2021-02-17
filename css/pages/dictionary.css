@@ -8,3 +8,14 @@
   flex: 1;
   border: 1px solid blue;
 }
+.dictionary-words{
+  width: 100%;
+  height: 85%;
+  border: 1px solid black;
+}
+.dictionary-btns{
+  display: flex;
+  justify-content: flex-end;
+  align-items:center;
+  margin-right: 100px;
+}

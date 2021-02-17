@@ -14,6 +14,7 @@ const Quiz=(function(){
         state={...state, ...newData}
         render()
         addHandlers()
+        addComponents()
         doSomethingAfterRendering(()=>{
             console.log('updated!')
         })
@@ -47,12 +48,13 @@ const Quiz=(function(){
         const template = getTemplete()
         const renderPosition=document.getElementById(props.rendorDOMId)
         renderPosition.innerHTML=template
+    }
+    function addHandlers(){}
 
+    function addComponents(){
         Nav.draw({rendorDOMId: "quiz-nav", bgColor: "black", textColor: "rgb(190, 190, 190)"})
     }
-    function addHandlers(){
-        // document.getElementById('router-btn').addEventListener('click', routeToScorePage)
-    }
+
     function doSomethingAfterRendering(callback){
         setTimeout(callback,0) 
     }
@@ -60,6 +62,7 @@ const Quiz=(function(){
         init(properties)
         render()
         addHandlers()
+        addComponents()
         doSomethingAfterRendering(fetchServerData)       
     } 
     return {draw}

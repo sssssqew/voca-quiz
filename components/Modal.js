@@ -1,6 +1,4 @@
-import Nav from '../components/Nav.js'
-
-const Score = (function(){
+const Modal=(function(){
   "use strict"
 
   let state={}
@@ -10,7 +8,6 @@ const Score = (function(){
     state={...state, ...newData}
     render()
     addHandlers()
-    addComponents()
     doSomethingAfterRendering(()=>{
         console.log('updated!')
     })
@@ -22,10 +19,7 @@ const Score = (function(){
     props={...properties}
   }
   function getTemplete(){
-    return (`<div class="score-container">
-              <div id="score-nav"></div>
-              <div class="score-contents">점수</div>
-            </div>`)
+    return (`<div>Modal</div>`)
   }
   function render(){
     const template = getTemplete()
@@ -34,22 +28,17 @@ const Score = (function(){
   }
   function addHandlers(){}
 
-  function addComponents(){
-    Nav.draw({rendorDOMId: "score-nav", bgColor: "black", textColor: "rgb(190, 190, 190)"})
-  }
-
   function doSomethingAfterRendering(callback){
-    setTimeout(callback,0) 
+    setTimeout(callback,0)
   }
   function draw(properties){
     init(properties)
     render()
     addHandlers()
-    addComponents()
     doSomethingAfterRendering(()=>console.log('mounted!'))
     
 } 
   return {draw}
 })()
 
-export default Score  
+export default Modal
