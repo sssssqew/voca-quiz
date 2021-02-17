@@ -45,7 +45,13 @@ const Dictionary=(function(){
 
   function addComponents(){
     Nav.draw({rendorDOMId: "dictionary-nav", bgColor: "black", textColor: "rgb(190, 190, 190)"})
-    Button.draw({rendorDOMId: "dictionary-btns", bgColor:'black', borderRadius: '50%', text:'+', 
+    
+    const addBtn = Button()
+    const removeBtn = Button()
+    console.log(addBtn === removeBtn)
+    addBtn.draw({rendorDOMId: "dictionary-btns", bgColor:'black', borderRadius: '50%', text:'+', 
+                  width:'70px', height:'70px', textSize: '50px', onClick: handleOpen})
+    removeBtn.draw({rendorDOMId: "dictionary-btns", bgColor:'black', borderRadius: '50%', text:'-', 
                   width:'70px', height:'70px', textSize: '50px', onClick: handleOpen})
   }
 

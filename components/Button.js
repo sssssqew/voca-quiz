@@ -1,4 +1,4 @@
-const Button=(function(){
+const Button=function(){
   "use strict"
 
   let state={}
@@ -32,7 +32,7 @@ const Button=(function(){
   function render(){
     const template = getTemplete()
     const renderPosition=document.getElementById(props.rendorDOMId)
-    renderPosition.innerHTML=template
+    renderPosition.innerHTML+=template // 여러개의 컴포넌트를 추가하는 경우 + 사용함
   }
   function addHandlers(){
     document.getElementById("button-el").addEventListener('click', handleClick)
@@ -46,9 +46,8 @@ const Button=(function(){
     render()
     addHandlers()
     doSomethingAfterRendering(()=>console.log('mounted!'))
-    
-} 
+  } 
   return {draw}
-})()
+} // 여러개의 컴포넌트를 생성하는 경우 나중에 생성할때마다 실행함
 
 export default Button
