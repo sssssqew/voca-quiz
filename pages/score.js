@@ -12,7 +12,7 @@ const Score = (function(){
     addComponents()
     addHandlers()
     doSomethingAfterRendering(()=>{
-        console.log('updated!')
+        console.log('Score updated!')
     })
   }
 
@@ -46,7 +46,7 @@ const Score = (function(){
     render()
     addComponents()
     addHandlers() 
-    doSomethingAfterRendering(()=>console.log('mounted!'))
+    doSomethingAfterRendering(()=>console.log('Score mounted!'))
     
 } 
   return {draw}

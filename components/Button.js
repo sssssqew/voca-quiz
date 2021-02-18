@@ -9,14 +9,14 @@ const Button=function(){
     render()
     addHandlers()
     doSomethingAfterRendering(()=>{
-        console.log('updated!')
+        console.log('Button updated!')
     })
   }
 
   // TODO: 이벤트 핸들러 
-  function handleClick(){
+  function handleClick(e){
     if(props.onClick){
-      props.onClick()
+      props.onClick(e)
     }
   }
 
@@ -25,7 +25,7 @@ const Button=function(){
   }
   function getTemplete(){
     const { uuid, width, height, bgColor, textColor, borderRadius, text, textSize } = props
-    return (`<button class="button-group" id="button-${uuid}"
+    return (`<button class="button-el" id="${uuid}"
               style="width: ${width?width:'122'};height:${height?height:'40'};font-size:${textSize?textSize: '10px'};
               background-color:${bgColor?bgColor:'rgb(158,158,158)'};color:${textColor?textColor:'white'};
               border-radius:${borderRadius?borderRadius:'15'};cursor:pointer;outline:none">
@@ -41,7 +41,7 @@ const Button=function(){
     renderPosition.insertAdjacentHTML('beforeend', template) // 여러개의 컴포넌트를 추가하는 경우 + 사용함
   }
   function addHandlers(){
-    document.getElementById(`button-${props.uuid}`).addEventListener('click', handleClick)
+    document.getElementById(`${props.uuid}`).addEventListener('click', handleClick)
   }
 
   function doSomethingAfterRendering(callback){
@@ -51,7 +51,7 @@ const Button=function(){
     init(properties)
     render()
     addHandlers()
-    doSomethingAfterRendering(()=>console.log('mounted!'))
+    doSomethingAfterRendering(()=>console.log('Button mounted!'))
   } 
   return {draw}
 } // 여러개의 컴포넌트를 생성하는 경우 나중에 생성할때마다 실행함

@@ -8,6 +8,9 @@ const Dictionary=(function(){
 
   let state={open:false}
   let props={}
+  const keys = Array(2).fill(0).map(el=>uuidGen())
+
+  console.log(keys)
 
   function update(newData){
     state={...state, ...newData}
@@ -15,14 +18,20 @@ const Dictionary=(function(){
     addComponents()
     addHandlers()
     doSomethingAfterRendering(()=>{
-        console.log('updated!')
+        console.log('Dictionary updated!')
     })
   }
 
   // TODO: 이벤트 핸들러
-  function handleOpen(){
+  function handleOpen(e){
     console.log("modal opened ...")
-    update({open:true})
+    if(e.target.id === keys[0]){
+      console.log("추가버튼 클릭 !")
+      update({open:true})
+    }else if(e.target.id === keys[1]){
+      console.log("삭제버튼 클릭 !")
+      update({open:true})
+    }
   } 
 
   function init(properties){
@@ -51,11 +60,11 @@ const Dictionary=(function(){
     
     const addBtn = Button()
     addBtn.draw({rendorDOMId: "dictionary-btns", bgColor:'black', borderRadius: '50%', text:'+', 
-                  width:'70px', height:'70px', textSize: '50px', uuid: uuidGen(), onClick: handleOpen})
+                  width:'70px', height:'70px', textSize: '50px', uuid: keys[0], onClick: handleOpen})
 
     const removeBtn = Button()
     removeBtn.draw({rendorDOMId: "dictionary-btns", bgColor:'black', borderRadius: '50%', text:'-', 
-                  width:'70px', height:'70px', textSize: '50px', uuid: uuidGen(), onClick: handleOpen})
+                  width:'70px', height:'70px', textSize: '50px', uuid: keys[1], onClick: handleOpen})
     
     
   }
@@ -68,7 +77,7 @@ const Dictionary=(function(){
     render()
     addComponents()
     addHandlers()
-    doSomethingAfterRendering(()=>console.log('mounted!'))
+    doSomethingAfterRendering(()=>console.log('Dictionary mounted!'))
     
 } 
   return {draw}

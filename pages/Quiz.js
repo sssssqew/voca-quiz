@@ -16,12 +16,13 @@ const Quiz=(function(){
         addComponents()
         addHandlers()
         doSomethingAfterRendering(()=>{
-            console.log('updated!')
+            console.log('Quiz updated!')
         })
     }
 
     // 서버 데이터 가져오기
     function fetchServerData(){
+        console.log("Quiz mounted!")
         const fetchData = async ()=>{
             try{
                 const data = await fetch('https://jsonplaceholder.typicode.com/todos/1').then(res=>res.json())

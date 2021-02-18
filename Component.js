@@ -13,7 +13,7 @@ const Component=(function(){
     // 리렌더링하기 => doSomethingAfterRendering 함수 사용하기 (여기 doSomethingAfterRendering에서는 update 사용시 무한루프에 걸림)
     // componentDidUpdate와 비슷한 기능을 함
     doSomethingAfterRendering(()=>{
-        console.log('updated!')
+        console.log('Component updated!')
     })
   }
 
@@ -45,9 +45,8 @@ const Component=(function(){
     init(properties)
     render()
     addHandlers()
-    doSomethingAfterRendering(()=>console.log('mounted!'))
-    
-} 
+    doSomethingAfterRendering(()=>console.log('Component mounted!'))
+  } 
   return {draw}
 })()
 

@@ -9,7 +9,7 @@ const Nav=(function(){
     render()
     addHandlers()
     doSomethingAfterRendering(() => {
-        console.log('updated!')
+        console.log('Nav updated!')
     })
   }
 
@@ -57,7 +57,7 @@ const Nav=(function(){
     init(properties)
     render()
     addHandlers()
-    doSomethingAfterRendering(() => console.log('mounted !')) 
+    doSomethingAfterRendering(() => console.log('Nav mounted !')) 
 } 
   return {draw}
 })()

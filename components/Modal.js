@@ -9,7 +9,7 @@ const Modal=(function(){
     render()
     addHandlers()
     doSomethingAfterRendering(()=>{
-        console.log('updated!')
+        console.log('Modal updated!')
     })
   }
 
@@ -35,7 +35,7 @@ const Modal=(function(){
     init(properties)
     render()
     addHandlers()
-    doSomethingAfterRendering(()=>console.log('mounted!'))
+    doSomethingAfterRendering(()=>console.log('Modal mounted!'))
     
 } 
   return {draw}
