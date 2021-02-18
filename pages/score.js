@@ -9,8 +9,8 @@ const Score = (function(){
   function update(newData){
     state={...state, ...newData}
     render()
-    addHandlers()
     addComponents()
+    addHandlers()
     doSomethingAfterRendering(()=>{
         console.log('updated!')
     })
@@ -44,8 +44,8 @@ const Score = (function(){
   function draw(properties){
     init(properties)
     render()
-    addHandlers()
     addComponents()
+    addHandlers() 
     doSomethingAfterRendering(()=>console.log('mounted!'))
     
 } 

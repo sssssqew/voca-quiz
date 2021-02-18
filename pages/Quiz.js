@@ -13,8 +13,8 @@ const Quiz=(function(){
     function update(newData){
         state={...state, ...newData}
         render()
-        addHandlers()
         addComponents()
+        addHandlers()
         doSomethingAfterRendering(()=>{
             console.log('updated!')
         })
@@ -61,8 +61,8 @@ const Quiz=(function(){
     function draw(properties){
         init(properties)
         render()
-        addHandlers()
         addComponents()
+        addHandlers()
         doSomethingAfterRendering(fetchServerData)       
     } 
     return {draw}
