@@ -3,6 +3,8 @@
 @import url("css/pages/dictionary.css");
 
 @import url("css/components/nav.css");
+@import url("css/components/modal.css");
+@import url("css/components/addmodal.css");
 
 html,
 body {

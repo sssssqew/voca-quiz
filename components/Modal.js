@@ -7,6 +7,7 @@ const Modal=(function(){
   function update(newData){
     state={...state, ...newData}
     render()
+    addComponents()
     addHandlers()
     doSomethingAfterRendering(()=>{
         console.log('Modal updated!')
@@ -19,7 +20,7 @@ const Modal=(function(){
     props={...properties}
   }
   function getTemplete(){
-    return (`<div>Modal</div>`)
+    return (`<div id="modal-frame" class="modal-frame" style="display:${props.open? "block":"none"}"></div>`)
   }
   function render(){
     const template = getTemplete()
@@ -28,12 +29,20 @@ const Modal=(function(){
   }
   function addHandlers(){}
 
+  function addComponents(){
+    const { modalBody, border } = props
+    if(modalBody){
+      modalBody.draw({rendorDOMId: "modal-frame", border:border})
+    }
+  }
+
   function doSomethingAfterRendering(callback){
     setTimeout(callback,0)
   }
   function draw(properties){
     init(properties)
     render()
+    addComponents()
     addHandlers()
     doSomethingAfterRendering(()=>console.log('Modal mounted!'))
     

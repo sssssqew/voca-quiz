@@ -1,5 +1,7 @@
 import Nav from '../components/Nav.js'
 import Button from '../components/Button.js'
+import Modal from '../components/Modal.js'
+import AddModal from '../components/AddModal.js'
 
 import uuidGen from '../lib/uuidGenerator.js'
 
@@ -27,7 +29,7 @@ const Dictionary=(function(){
     console.log("modal opened ...")
     if(e.target.id === keys[0]){
       console.log("추가버튼 클릭 !")
-      update({open:true})
+      update({open:true, modalBody:AddModal})
     }else if(e.target.id === keys[1]){
       console.log("삭제버튼 클릭 !")
       update({open:true})
@@ -40,6 +42,7 @@ const Dictionary=(function(){
   function getTemplete(){
     return (`<div class="dictionary-container">
               <div id="dictionary-nav"></div>
+              <div id="dictionary-modal"></div>
               <div class="dictionary-contents">
                 <div class="dictionary-words">사전</div>
                 <div class="dictionary-btns" id="dictionary-btns"></div>
@@ -57,7 +60,8 @@ const Dictionary=(function(){
 
   function addComponents(){
     Nav.draw({rendorDOMId: "dictionary-nav", bgColor: "black", textColor: "rgb(190, 190, 190)"})
-    
+    Modal.draw({rendorDOMId: "dictionary-modal", open: state.open, modalBody:state.modalBody, border: "none"})
+
     const addBtn = Button()
     addBtn.draw({rendorDOMId: "dictionary-btns", bgColor:'black', borderRadius: '50%', text:'+', 
                   width:'70px', height:'70px', textSize: '50px', uuid: keys[0], onClick: handleOpen})
@@ -65,7 +69,6 @@ const Dictionary=(function(){
     const removeBtn = Button()
     removeBtn.draw({rendorDOMId: "dictionary-btns", bgColor:'black', borderRadius: '50%', text:'-', 
                   width:'70px', height:'70px', textSize: '50px', uuid: keys[1], onClick: handleOpen})
-    
     
   }
 
