@@ -3,13 +3,14 @@ const Nav=(function(){
 
   let state={}
   let props={}
+  const defaultStyle={}
 
   function update(newData){
     state={...state, ...newData}
     render()
     addHandlers()
     doSomethingAfterRendering(() => {
-        console.log('Nav updated!')
+        console.log("Nav updated!")
     })
   }
 
@@ -21,10 +22,11 @@ const Nav=(function(){
   }
   function init(properties){
     props={...properties}
+    if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of Nav!")
   }
   function getTemplete(){
     const {bgColor, textColor} = props
-    return (`<div class="nav-container" style="background-color:${bgColor};color:${textColor};">
+    return (`<div class="nav-container" style="background-color:${bgColor?bgColor:'white'};color:${textColor?textColor:'black'};">
               <div id="nav-menu" class="nav-menu">
                 <div class="nav-menu-item" data-url="/">
                   <div class="nav-menu-text">Quiz</div>
@@ -57,7 +59,7 @@ const Nav=(function(){
     init(properties)
     render()
     addHandlers()
-    doSomethingAfterRendering(() => console.log('Nav mounted !')) 
+    doSomethingAfterRendering(() => console.log("Nav mounted!")) 
 } 
   return {draw}
 })()

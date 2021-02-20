@@ -4,6 +4,7 @@ const Component=(function(){
   // 새로운 객체 주소로 변경하므로 let으로 선언하기
   let state={}
   let props={}
+  const defaultStyle={}
 
   // state 변경하기 (setState 함수와 유사한 기능을 함)
   function update(newData){
@@ -13,7 +14,7 @@ const Component=(function(){
     // 리렌더링하기 => doSomethingAfterRendering 함수 사용하기 (여기 doSomethingAfterRendering에서는 update 사용시 무한루프에 걸림)
     // componentDidUpdate와 비슷한 기능을 함
     doSomethingAfterRendering(()=>{
-        console.log('Component updated!')
+        console.log("Component updated!")
     })
   }
 
@@ -22,6 +23,7 @@ const Component=(function(){
   // Property 등 외부로부터 인자를 전달받아 초기화
   function init(properties){
     props={...properties}
+    if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of Component!") // 렌더링 위치가 없는 경우 에러 일으킴
   }
   // HTML 템플릿 가져오기
   function getTemplete(){
@@ -45,7 +47,7 @@ const Component=(function(){
     init(properties)
     render()
     addHandlers()
-    doSomethingAfterRendering(()=>console.log('Component mounted!'))
+    doSomethingAfterRendering(()=>console.log("Component mounted!"))
   } 
   return {draw}
 })()

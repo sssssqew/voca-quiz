@@ -10,7 +10,8 @@ const Dictionary=(function(){
 
   let state={open:false}
   let props={}
-  const keys = Array(2).fill(0).map(el=>uuidGen())
+  const defaultStyle={}
+  const keys = Array(3).fill(0).map(el=>uuidGen())
 
   console.log(keys)
 
@@ -20,7 +21,7 @@ const Dictionary=(function(){
     addComponents()
     addHandlers()
     doSomethingAfterRendering(()=>{
-        console.log('Dictionary updated!')
+        console.log("Dictionary updated!")
     })
   }
 
@@ -38,6 +39,7 @@ const Dictionary=(function(){
 
   function init(properties){
     props={...properties}
+    if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of Dictionary!")
   }
   function getTemplete(){
     return (`<div class="dictionary-container">
@@ -60,15 +62,18 @@ const Dictionary=(function(){
 
   function addComponents(){
     Nav.draw({rendorDOMId: "dictionary-nav", bgColor: "black", textColor: "rgb(190, 190, 190)"})
-    Modal.draw({rendorDOMId: "dictionary-modal", open: state.open, modalBody:state.modalBody, border: "none"})
+    Modal.draw({rendorDOMId: "dictionary-modal", open: state.open, modalBody:state.modalBody, bgColor:"black", textColor: "rgb(190, 190, 190)", border: "none"})
 
     const addBtn = Button()
-    addBtn.draw({rendorDOMId: "dictionary-btns", bgColor:'black', borderRadius: '50%', text:'+', 
-                  width:'70px', height:'70px', textSize: '50px', uuid: keys[0], onClick: handleOpen})
+    addBtn.draw({rendorDOMId: "dictionary-btns", style: {hoverColor:'orange', bgColor:'black', borderRadius: '50%', text:'+', 
+    width:'70px', height:'70px', textSize: '50px'}, uuid: keys[0], onClick: handleOpen})
 
     const removeBtn = Button()
-    removeBtn.draw({rendorDOMId: "dictionary-btns", bgColor:'black', borderRadius: '50%', text:'-', 
-                  width:'70px', height:'70px', textSize: '50px', uuid: keys[1], onClick: handleOpen})
+    removeBtn.draw({rendorDOMId: "dictionary-btns", style: {bgColor:'black', borderRadius: '50%', text:'-', 
+    width:'70px', height:'70px', textSize: '50px'}, uuid: keys[1], onClick: handleOpen})
+
+                  const defaultBtn = Button()
+                  defaultBtn.draw({rendorDOMId: "dictionary-btns", uuid: keys[2]})
     
   }
 
@@ -80,7 +85,7 @@ const Dictionary=(function(){
     render()
     addComponents()
     addHandlers()
-    doSomethingAfterRendering(()=>console.log('Dictionary mounted!'))
+    doSomethingAfterRendering(()=>console.log("Dictionary mounted!"))
     
 } 
   return {draw}

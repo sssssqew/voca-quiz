@@ -5,6 +5,7 @@ const Score = (function(){
 
   let state={}
   let props={}
+  const defaultStyle={}
 
   function update(newData){
     state={...state, ...newData}
@@ -12,7 +13,7 @@ const Score = (function(){
     addComponents()
     addHandlers()
     doSomethingAfterRendering(()=>{
-        console.log('Score updated!')
+        console.log("Score updated!")
     })
   }
 
@@ -20,6 +21,7 @@ const Score = (function(){
 
   function init(properties){
     props={...properties}
+    if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of Score!")
   }
   function getTemplete(){
     return (`<div class="score-container">
@@ -46,8 +48,7 @@ const Score = (function(){
     render()
     addComponents()
     addHandlers() 
-    doSomethingAfterRendering(()=>console.log('Score mounted!'))
-    
+    doSomethingAfterRendering(()=>console.log("Score mounted!"))
 } 
   return {draw}
 })()

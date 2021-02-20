@@ -9,6 +9,7 @@ const Quiz=(function(){
         person: 'I'
     }
     let props={}
+    const defaultStyle={}
 
     function update(newData){
         state={...state, ...newData}
@@ -16,7 +17,7 @@ const Quiz=(function(){
         addComponents()
         addHandlers()
         doSomethingAfterRendering(()=>{
-            console.log('Quiz updated!')
+            console.log("Quiz updated!")
         })
     }
 
@@ -37,6 +38,7 @@ const Quiz=(function(){
     }
     function init(properties){
         props={...properties}
+        if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of Quiz!")
     }
     function getTemplete(){
         const {title, person}=state

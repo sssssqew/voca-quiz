@@ -3,6 +3,7 @@ const Modal=(function(){
 
   let state={}
   let props={}
+  const defaultStyle={}
 
   function update(newData){
     state={...state, ...newData}
@@ -10,7 +11,7 @@ const Modal=(function(){
     addComponents()
     addHandlers()
     doSomethingAfterRendering(()=>{
-        console.log('Modal updated!')
+        console.log("Modal updated!")
     })
   }
 
@@ -18,6 +19,7 @@ const Modal=(function(){
 
   function init(properties){
     props={...properties}
+    if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of Modal!")
   }
   function getTemplete(){
     return (`<div id="modal-frame" class="modal-frame" style="display:${props.open? "block":"none"}"></div>`)
@@ -30,9 +32,9 @@ const Modal=(function(){
   function addHandlers(){}
 
   function addComponents(){
-    const { modalBody, border } = props
+    const { modalBody, bgColor, textColor, width, height, border } = props
     if(modalBody){
-      modalBody.draw({rendorDOMId: "modal-frame", border:border})
+      modalBody.draw({rendorDOMId: "modal-frame", bgColor, textColor, width, height, border})
     }
   }
 
@@ -44,7 +46,7 @@ const Modal=(function(){
     render()
     addComponents()
     addHandlers()
-    doSomethingAfterRendering(()=>console.log('Modal mounted!'))
+    doSomethingAfterRendering(()=>console.log("Modal mounted!"))
     
 } 
   return {draw}

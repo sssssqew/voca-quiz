@@ -3,13 +3,14 @@ const AddModal=(function(){
 
   let state={}
   let props={}
+  const defaultStyle={}
 
   function update(newData){
     state={...state, ...newData}
     render()
     addHandlers()
     doSomethingAfterRendering(()=>{
-        console.log('AddModal updated!')
+        console.log("AddModal updated!")
     })
   }
 
@@ -17,19 +18,20 @@ const AddModal=(function(){
 
   function init(properties){
     props={...properties}
+    if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of AddModal!")
   }
   function getTemplete(){
     const { bgColor, textColor, width, height, border } = props
     return (`<div class="addmodal-body" style="background-color:${bgColor?bgColor:'white'};
               color:${textColor?textColor:'black'};
-              width:${width?width:'400px'};height:${height?height:'350px'};
+              width:${width?width:'500px'};height:${height?height:'400px'};
               border:${border?border:'1px solid black'}">
                 <div class="addmodal-header">
                   <p>You will add new word in your dictionary?</p>
                 </div>
                 <div class="addmodal-contents">
                   <div class="addmodal-inputs">
-                    <input class="addmodal-input" type="text" placeholder="Type meaning in korean ..."/>
+                    <input class="addmodal-input" type="text" placeholder="Type meaning of the word in korean ..."/>
                     <input class="addmodal-input" type="text" placeholder="Type new word in english ..."/>
                   </div>
                 </div>
@@ -51,7 +53,7 @@ const AddModal=(function(){
     init(properties)
     render()
     addHandlers()
-    doSomethingAfterRendering(()=>console.log('AddModal mounted!'))
+    doSomethingAfterRendering(()=>console.log("AddModal mounted!"))
     
 } 
   return {draw}

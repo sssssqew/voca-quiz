@@ -4,12 +4,27 @@ const Button=function(){
   let state={}
   let props={}
 
+  // css 파일에 디폴트 스타일을 지정하지 않은 이유는 자바스크립트로 스타일을 변경할때
+  // 값이 없는 경우 css 스타일로 다시 설정되지 않는다는 것이다
+  // 다시 말해서 자바스크립트로 스타일을 변경한 다음 초기값으로 다시 변경되어야 할때 css 파일은 정적이라 원래값으로 돌아가지 않는다
+  // 그러므로 컴포넌트의 공통적인 스타일만 css 파일에 지정하고 변경될 속성들은 전적으로 자바스크립트에서 디폴트값까지 설정해주는게 안전하다 
+  const defaultStyle={
+    width:'120px',
+    height:'40px',
+    textSize: '18px',
+    bgColor:'rgb(158,158,158)',
+    textColor:'white',
+    borderRadius:'5px',
+    text:"button",
+    hoverColor: 'gray'
+  } 
+
   function update(newData){
     state={...state, ...newData}
     render()
     addHandlers()
     doSomethingAfterRendering(()=>{
-        console.log('Button updated!')
+        console.log("Button updated!")
     })
   }
 
@@ -20,16 +35,32 @@ const Button=function(){
     }
   }
 
+  function handleMouseOver(){
+    const { style } = props
+    const { hoverColor } = style? style: {}
+    this.style.backgroundColor = hoverColor? hoverColor: defaultStyle.hoverColor
+  }
+
+  function handleMouseLeave(){
+    const { style } = props
+    const { bgColor } = style? style: {}
+    this.style.backgroundColor = bgColor? bgColor: defaultStyle.bgColor
+  }
+
   function init(properties){
     props={...properties}
+    if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of Button!")
+    if(!props.uuid) throw new Error("No uuid for list component. Please set uuid property on draw function of Button!") // 컴포넌트를 여러개 생성하는 경우 반드시 uuid를 전달하도록 함
   }
   function getTemplete(){
-    const { uuid, width, height, bgColor, textColor, borderRadius, text, textSize } = props
+    const { uuid, style } = props // props.style 이렇게 하지 않은 이유는 props.style이 undefined이면 에러가 발생한다. 이렇게 하면 undefined라도 에러가 발생하지 않는다
+    const { width, height, bgColor, textColor, borderRadius, text, textSize } = style? style:{} // 스타일 객체를 넘겨주지 않은 경우
+    const d = defaultStyle // 변수명이 너무 길어서 약자로 변경함
     return (`<button class="button-el" id="${uuid}"
-              style="width: ${width?width:'122'};height:${height?height:'40'};font-size:${textSize?textSize: '10px'};
-              background-color:${bgColor?bgColor:'rgb(158,158,158)'};color:${textColor?textColor:'white'};
-              border-radius:${borderRadius?borderRadius:'15'};cursor:pointer;outline:none">
-              ${text?text:"button"}</button>`)
+              style="width: ${width?width:d.width};height:${height?height:d.height};font-size:${textSize?textSize:d.textSize};
+              background-color:${bgColor?bgColor:d.bgColor};color:${textColor?textColor:d.textColor};
+              border-radius:${borderRadius?borderRadius:d.borderRadius}">
+              ${text?text:d.text}</button>`)
   }
   // innerHTML += template 문제
   // 각각의 버튼을 생성할때마다 위 코드를 실행하는데 
@@ -41,7 +72,10 @@ const Button=function(){
     renderPosition.insertAdjacentHTML('beforeend', template) // 여러개의 컴포넌트를 추가하는 경우 + 사용함
   }
   function addHandlers(){
-    document.getElementById(`${props.uuid}`).addEventListener('click', handleClick)
+    const { uuid } = props
+    document.getElementById(`${uuid}`).addEventListener('click', handleClick)
+    document.getElementById(`${uuid}`).addEventListener('mouseover', handleMouseOver)
+    document.getElementById(`${uuid}`).addEventListener('mouseleave', handleMouseLeave)
   }
 
   function doSomethingAfterRendering(callback){
@@ -51,7 +85,7 @@ const Button=function(){
     init(properties)
     render()
     addHandlers()
-    doSomethingAfterRendering(()=>console.log('Button mounted!'))
+    doSomethingAfterRendering(()=>console.log("Button mounted!"))
   } 
   return {draw}
 } // 여러개의 컴포넌트를 생성하는 경우 나중에 생성할때마다 실행함
