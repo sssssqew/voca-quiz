@@ -36,25 +36,24 @@ const Button=function(){
   }
 
   function handleMouseOver(){
-    const { style } = props
-    const { hoverColor } = style? style: {}
+    const { hoverColor } = props.style
     this.style.backgroundColor = hoverColor? hoverColor: defaultStyle.hoverColor
   }
 
   function handleMouseLeave(){
-    const { style } = props
-    const { bgColor } = style? style: {}
+    const { bgColor } = props.style
     this.style.backgroundColor = bgColor? bgColor: defaultStyle.bgColor
   }
 
   function init(properties){
     props={...properties}
-    if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of Button!")
-    if(!props.uuid) throw new Error("No uuid for list component. Please set uuid property on draw function of Button!") // 컴포넌트를 여러개 생성하는 경우 반드시 uuid를 전달하도록 함
+    if(!props.hasOwnProperty("rendorDOMId")) throw new Error("No position to render. Please set renderDOMId property on draw function of Button!")
+    if(!props.hasOwnProperty("uuid")) throw new Error("No uuid for list component. Please set uuid property on draw function of Button!") // 컴포넌트를 여러개 생성하는 경우 반드시 uuid를 전달하도록 함
+    if(!props.hasOwnProperty("style")) props.style = {}
   }
   function getTemplete(){
-    const { uuid, style } = props // props.style 이렇게 하지 않은 이유는 props.style이 undefined이면 에러가 발생한다. 이렇게 하면 undefined라도 에러가 발생하지 않는다
-    const { width, height, bgColor, textColor, borderRadius, text, textSize } = style? style:{} // 스타일 객체를 넘겨주지 않은 경우
+    const { uuid, style } = props 
+    const { width, height, bgColor, textColor, borderRadius, text, textSize } = style 
     const d = defaultStyle // 변수명이 너무 길어서 약자로 변경함
     return (`<button class="button-el" id="${uuid}"
               style="width: ${width?width:d.width};height:${height?height:d.height};font-size:${textSize?textSize:d.textSize};

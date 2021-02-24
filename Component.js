@@ -23,7 +23,8 @@ const Component=(function(){
   // Property 등 외부로부터 인자를 전달받아 초기화
   function init(properties){
     props={...properties}
-    if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of Component!") // 렌더링 위치가 없는 경우 에러 일으킴
+    if(!props.hasOwnProperty("rendorDOMId")) throw new Error("No position to render. Please set renderDOMId property on draw function of Component!") // 렌더링 위치가 없는 경우 에러 일으킴
+    if(!props.hasOwnProperty("style")) props.style = {} // 스타일 객체를 넘겨주지 않은 경우
   }
   // HTML 템플릿 가져오기
   function getTemplete(){

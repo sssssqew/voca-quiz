@@ -3,7 +3,10 @@ const Nav=(function(){
 
   let state={}
   let props={}
-  const defaultStyle={}
+  const defaultStyle={
+    bgColor:'rgb(158,158,158)',
+    textColor:'black'
+  }
 
   function update(newData){
     state={...state, ...newData}
@@ -18,15 +21,17 @@ const Nav=(function(){
   function navigate(e){
     console.log(e.target.closest('.nav-menu-item').dataset.url) // 이벤트 위임: 해당 클래스 이름을 가진 가장 가까운 상위요소
     window.router(e.target.closest('.nav-menu-item').dataset.url, {rendorDOMId:'root'})
-
   }
   function init(properties){
     props={...properties}
-    if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of Nav!")
+    if(!props.hasOwnProperty("rendorDOMId")) throw new Error("No position to render. Please set renderDOMId property on draw function of Nav!")
+    if(!props.hasOwnProperty("style")) props.style = {}
   }
   function getTemplete(){
-    const {bgColor, textColor} = props
-    return (`<div class="nav-container" style="background-color:${bgColor?bgColor:'white'};color:${textColor?textColor:'black'};">
+    const { style } = props
+    const { bgColor, textColor } = style
+    const d = defaultStyle
+    return (`<div class="nav-container" style="background-color:${bgColor?bgColor:d.bgColor};color:${textColor?textColor:d.textColor};">
               <div id="nav-menu" class="nav-menu">
                 <div class="nav-menu-item" data-url="/">
                   <div class="nav-menu-text">Quiz</div>

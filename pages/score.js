@@ -21,7 +21,8 @@ const Score = (function(){
 
   function init(properties){
     props={...properties}
-    if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of Score!")
+    if(!props.hasOwnProperty("rendorDOMId")) throw new Error("No position to render. Please set renderDOMId property on draw function of Score!")
+    if(!props.hasOwnProperty("style")) props.style = {}
   }
   function getTemplete(){
     return (`<div class="score-container">
@@ -37,7 +38,7 @@ const Score = (function(){
   function addHandlers(){}
 
   function addComponents(){
-    Nav.draw({rendorDOMId: "score-nav", bgColor: "black", textColor: "rgb(190, 190, 190)"})
+    Nav.draw({rendorDOMId: "score-nav", style: {bgColor: "black", textColor: "rgb(190, 190, 190)"}})
   }
 
   function doSomethingAfterRendering(callback){

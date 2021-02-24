@@ -19,7 +19,10 @@ const Modal=(function(){
 
   function init(properties){
     props={...properties}
-    if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of Modal!")
+    if(!props.hasOwnProperty("rendorDOMId")) throw new Error("No position to render. Please set renderDOMId property on draw function of Modal!")
+    if(!props.hasOwnProperty("open")) throw new Error("No open property for modal component. Please set open property on draw function of Modal!")
+    if(!props.hasOwnProperty("modalBody")) throw new Error("No contents to render on Modal. Please set modalBody property on draw function of Modal!")
+    if(!props.hasOwnProperty("style")) props.style = {}
   }
   function getTemplete(){
     return (`<div id="modal-frame" class="modal-frame" style="display:${props.open? "block":"none"}"></div>`)
@@ -32,9 +35,9 @@ const Modal=(function(){
   function addHandlers(){}
 
   function addComponents(){
-    const { modalBody, bgColor, textColor, width, height, border } = props
+    const { modalBody, style } = props
     if(modalBody){
-      modalBody.draw({rendorDOMId: "modal-frame", bgColor, textColor, width, height, border})
+      modalBody.draw({rendorDOMId: "modal-frame", style})
     }
   }
 

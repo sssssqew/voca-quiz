@@ -3,7 +3,13 @@ const AddModal=(function(){
 
   let state={}
   let props={}
-  const defaultStyle={}
+  const defaultStyle={
+    bgColor:'white',
+    textColor:'black',
+    width:'500px',
+    height:'400px',
+    border:'1px solid black'
+  }
 
   function update(newData){
     state={...state, ...newData}
@@ -18,14 +24,17 @@ const AddModal=(function(){
 
   function init(properties){
     props={...properties}
-    if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of AddModal!")
+    if(!props.hasOwnProperty("rendorDOMId")) throw new Error("No position to render. Please set renderDOMId property on draw function of AddModal!")
+    if(!props.hasOwnProperty("style")) props.style = {}
   }
   function getTemplete(){
-    const { bgColor, textColor, width, height, border } = props
-    return (`<div class="addmodal-body" style="background-color:${bgColor?bgColor:'white'};
-              color:${textColor?textColor:'black'};
-              width:${width?width:'500px'};height:${height?height:'400px'};
-              border:${border?border:'1px solid black'}">
+    const { style } = props
+    const { bgColor, textColor, width, height, border } = style
+    const d = defaultStyle
+    return (`<div class="addmodal-body" style="background-color:${bgColor?bgColor:d.bgColor};
+              color:${textColor?textColor:d.textColor};
+              width:${width?width:d.width};height:${height?height:d.height};
+              border:${border?border:d.border}">
                 <div class="addmodal-header">
                   <p>You will add new word in your dictionary?</p>
                 </div>

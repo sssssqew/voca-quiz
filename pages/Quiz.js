@@ -38,10 +38,11 @@ const Quiz=(function(){
     }
     function init(properties){
         props={...properties}
-        if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of Quiz!")
+        if(!props.hasOwnProperty("rendorDOMId")) throw new Error("No position to render. Please set renderDOMId property on draw function of Quiz!")
+        if(!props.hasOwnProperty("style")) props.style = {}
     }
     function getTemplete(){
-        const {title, person}=state
+        const {title, person} = state
         return (`<div class="quiz-container">
                     <div id="quiz-nav"></div>
                     <div class="quiz-contents">퀴즈</div>
@@ -55,7 +56,7 @@ const Quiz=(function(){
     function addHandlers(){}
 
     function addComponents(){
-        Nav.draw({rendorDOMId: "quiz-nav", bgColor: "black", textColor: "rgb(190, 190, 190)"})
+        Nav.draw({rendorDOMId: "quiz-nav", style: {bgColor: "black", textColor: "rgb(190, 190, 190)"}})
     }
 
     function doSomethingAfterRendering(callback){

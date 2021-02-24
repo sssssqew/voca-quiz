@@ -39,7 +39,8 @@ const Dictionary=(function(){
 
   function init(properties){
     props={...properties}
-    if(!props.rendorDOMId) throw new Error("No position to render. Please set renderDOMId property on draw function of Dictionary!")
+    if(!props.hasOwnProperty("rendorDOMId")) throw new Error("No position to render. Please set renderDOMId property on draw function of Dictionary!")
+    if(!props.hasOwnProperty("style")) props.style = {}
   }
   function getTemplete(){
     return (`<div class="dictionary-container">
@@ -61,8 +62,8 @@ const Dictionary=(function(){
   }
 
   function addComponents(){
-    Nav.draw({rendorDOMId: "dictionary-nav", bgColor: "black", textColor: "rgb(190, 190, 190)"})
-    Modal.draw({rendorDOMId: "dictionary-modal", open: state.open, modalBody:state.modalBody, bgColor:"black", textColor: "rgb(190, 190, 190)", border: "none"})
+    Nav.draw({rendorDOMId: "dictionary-nav", style: {bgColor: "black", textColor: "rgb(190, 190, 190)"}})
+    Modal.draw({rendorDOMId: "dictionary-modal", open: state.open, modalBody:state.modalBody, style: {bgColor:"black", textColor: "rgb(190, 190, 190)", border: "none"}})
 
     const addBtn = Button()
     addBtn.draw({rendorDOMId: "dictionary-btns", style: {hoverColor:'orange', bgColor:'black', borderRadius: '50%', text:'+', 
