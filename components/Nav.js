@@ -4,8 +4,11 @@ const Nav=(function(){
   let state={}
   let props={}
   const defaultStyle={
+    width: '50px',
+    height: '100vh',
     bgColor:'rgb(158,158,158)',
     textColor:'black',
+    hoverWidth: '30%',
     hoverColor: 'rgb(20,20,20)',
     hoverTextColor: 'white'
   }
@@ -26,15 +29,19 @@ const Nav=(function(){
   }
 
   function handleMouseOver(){
-    const { hoverColor, hoverTextColor } = props.style
-    this.style.backgroundColor = hoverColor? hoverColor: defaultStyle.hoverColor
-    this.style.color = hoverTextColor? hoverTextColor: defaultStyle.hoverTextColor
+    const { hoverColor, hoverTextColor, hoverWidth } = props.style
+    const d = defaultStyle
+    this.style.backgroundColor = hoverColor? hoverColor: d.hoverColor
+    this.style.color = hoverTextColor? hoverTextColor: d.hoverTextColor
+    this.closest('.nav-container').style.width = hoverWidth? hoverWidth: d.hoverWidth
   }
 
   function handleMouseLeave(){
-    const { bgColor, textColor } = props.style
-    this.style.backgroundColor = bgColor? bgColor: defaultStyle.bgColor
-    this.style.color = textColor? textColor: defaultStyle.textColor
+    const { width, bgColor, textColor } = props.style
+    const d = defaultStyle
+    this.style.backgroundColor = bgColor? bgColor: d.bgColor
+    this.style.color = textColor? textColor: d.textColor
+    this.closest('.nav-container').style.width = width? width: d.width
   }
 
   function init(properties){
@@ -44,9 +51,11 @@ const Nav=(function(){
   }
   function getTemplete(){
     const { style } = props
-    const { bgColor, textColor } = style
+    const { width, height, bgColor, textColor } = style
     const d = defaultStyle
-    return (`<div class="nav-container" style="background-color:${bgColor?bgColor:d.bgColor};color:${textColor?textColor:d.textColor};">
+    return (`<div class="nav-container" 
+                  style="width:${width?width:d.width};height:${height?height:d.height};
+                  background-color:${bgColor?bgColor:d.bgColor};color:${textColor?textColor:d.textColor};">
               <div id="nav-menu" class="nav-menu">
                 <div class="nav-menu-item" data-url="/">
                   <div class="nav-menu-text">Quiz</div>

@@ -39,14 +39,16 @@ const Button=function(){
 
   function handleMouseOver(){
     const { hoverColor, hoverTextColor } = props.style
-    this.style.backgroundColor = hoverColor? hoverColor: defaultStyle.hoverColor
-    this.style.color = hoverTextColor? hoverTextColor: defaultStyle.hoverTextColor
+    const d = defaultStyle
+    this.style.backgroundColor = hoverColor? hoverColor: d.hoverColor
+    this.style.color = hoverTextColor? hoverTextColor: d.hoverTextColor
   }
 
   function handleMouseLeave(){
     const { bgColor, textColor } = props.style
-    this.style.backgroundColor = bgColor? bgColor: defaultStyle.bgColor
-    this.style.color = textColor? textColor: defaultStyle.textColor
+    const d = defaultStyle
+    this.style.backgroundColor = bgColor? bgColor: d.bgColor
+    this.style.color = textColor? textColor: d.textColor
   }
 
   function init(properties){
