@@ -20,10 +20,6 @@
   cursor: pointer;
   box-sizing: border-box;
 }
-.nav-menu-item:hover{
-  background-color: rgb(20,20,20);
-  color: white;
-}
 .nav-menu-text{
   font-size: 40px;
   font-weight: bold;

@@ -5,7 +5,9 @@ const Nav=(function(){
   let props={}
   const defaultStyle={
     bgColor:'rgb(158,158,158)',
-    textColor:'black'
+    textColor:'black',
+    hoverColor: 'rgb(20,20,20)',
+    hoverTextColor: 'white'
   }
 
   function update(newData){
@@ -22,6 +24,19 @@ const Nav=(function(){
     console.log(e.target.closest('.nav-menu-item').dataset.url) // 이벤트 위임: 해당 클래스 이름을 가진 가장 가까운 상위요소
     window.router(e.target.closest('.nav-menu-item').dataset.url, {rendorDOMId:'root'})
   }
+
+  function handleMouseOver(){
+    const { hoverColor, hoverTextColor } = props.style
+    this.style.backgroundColor = hoverColor? hoverColor: defaultStyle.hoverColor
+    this.style.color = hoverTextColor? hoverTextColor: defaultStyle.hoverTextColor
+  }
+
+  function handleMouseLeave(){
+    const { bgColor, textColor } = props.style
+    this.style.backgroundColor = bgColor? bgColor: defaultStyle.bgColor
+    this.style.color = textColor? textColor: defaultStyle.textColor
+  }
+
   function init(properties){
     props={...properties}
     if(!props.hasOwnProperty("rendorDOMId")) throw new Error("No position to render. Please set renderDOMId property on draw function of Nav!")
@@ -55,6 +70,10 @@ const Nav=(function(){
   }
   function addHandlers(){
     document.getElementById('nav-menu').addEventListener('click', navigate)
+    Array.from(document.getElementsByClassName('nav-menu-item')).forEach(el=>{
+      el.addEventListener('mouseover', handleMouseOver)
+      el.addEventListener('mouseleave', handleMouseLeave)
+    })
   }
 
   function doSomethingAfterRendering(callback){

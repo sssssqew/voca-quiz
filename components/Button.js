@@ -16,7 +16,8 @@ const Button=function(){
     textColor:'white',
     borderRadius:'5px',
     text:"button",
-    hoverColor: 'gray'
+    hoverColor: 'gray',
+    hoverTextColor: 'white'
   } 
 
   function update(newData){
@@ -30,19 +31,22 @@ const Button=function(){
 
   // TODO: 이벤트 핸들러 
   function handleClick(e){
+    // e.stopPropagation() // 해당코드를 사용하면 이벤트 위임을 사용하지 못함
     if(props.onClick){
       props.onClick(e)
     }
   }
 
   function handleMouseOver(){
-    const { hoverColor } = props.style
+    const { hoverColor, hoverTextColor } = props.style
     this.style.backgroundColor = hoverColor? hoverColor: defaultStyle.hoverColor
+    this.style.color = hoverTextColor? hoverTextColor: defaultStyle.hoverTextColor
   }
 
   function handleMouseLeave(){
-    const { bgColor } = props.style
+    const { bgColor, textColor } = props.style
     this.style.backgroundColor = bgColor? bgColor: defaultStyle.bgColor
+    this.style.color = textColor? textColor: defaultStyle.textColor
   }
 
   function init(properties){

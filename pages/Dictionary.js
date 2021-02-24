@@ -74,7 +74,7 @@ const Dictionary=(function(){
     width:'70px', height:'70px', textSize: '50px'}, uuid: keys[1], onClick: handleOpen})
 
                   const defaultBtn = Button()
-                  defaultBtn.draw({rendorDOMId: "dictionary-btns", uuid: keys[2]})
+                  defaultBtn.draw({rendorDOMId: "dictionary-btns", uuid: keys[2], style: {hoverTextColor: "orange"}})
     
   }
 
