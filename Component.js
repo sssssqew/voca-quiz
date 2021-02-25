@@ -10,6 +10,7 @@ const Component=(function(){
   function update(newData){
     state={...state, ...newData}
     render()
+    addComponents()
     addHandlers()
     // 리렌더링하기 => doSomethingAfterRendering 함수 사용하기 (여기 doSomethingAfterRendering에서는 update 사용시 무한루프에 걸림)
     // componentDidUpdate와 비슷한 기능을 함
@@ -36,6 +37,9 @@ const Component=(function(){
     const renderPosition=document.getElementById(props.rendorDOMId)
     renderPosition.innerHTML=template
   }
+  // 모든 자식 컴포넌트 렌더링하기
+  function addComponents(){}
+  
   // 모든 이벤트 핸들러 적용하기
   function addHandlers(){}
 
@@ -47,6 +51,7 @@ const Component=(function(){
   function draw(properties){
     init(properties)
     render()
+    addComponents()
     addHandlers()
     doSomethingAfterRendering(()=>console.log("Component mounted!"))
   } 

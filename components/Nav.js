@@ -1,7 +1,16 @@
+import Button from '../components/Button.js'
+
+import changeStyle from '../lib/changeStyle.js'
+import uuidGen from '../lib/uuidGenerator.js'
+
 const Nav=(function(){
   "use strict"
 
-  let state={}
+  let state={
+    quizText: "<div></div>",
+    scoreText: "<div></div>",
+    dictionaryText: "<div></div>"
+  }
   let props={}
   const defaultStyle={
     width: '50px',
@@ -12,10 +21,27 @@ const Nav=(function(){
     hoverColor: 'rgb(20,20,20)',
     hoverTextColor: 'white'
   }
+  const keys = Array(3).fill(0).map(el=>uuidGen())
+
+  // 사용자 함수
+  function showText(target){
+    console.log("show")
+    changeStyle(target, "visibility", "visible", null)
+  }
+  function hideText(target){
+    console.log("hide")
+    changeStyle(target, "visibility", "hidden", null)
+  }
+  function changeVisibilityOfText(w, target){
+    // console.log(w)
+    if(w > 150) showText(target)
+    else hideText(target)
+  }
 
   function update(newData){
     state={...state, ...newData}
     render()
+    addComponents()
     addHandlers()
     doSomethingAfterRendering(() => {
         console.log("Nav updated!")
@@ -24,24 +50,90 @@ const Nav=(function(){
 
   // TODO: 이벤트 핸들러 
   function navigate(e){
-    console.log(e.target.closest('.nav-menu-item').dataset.url) // 이벤트 위임: 해당 클래스 이름을 가진 가장 가까운 상위요소
-    window.router(e.target.closest('.nav-menu-item').dataset.url, {rendorDOMId:'root'})
+    console.log(e.target.dataset.url) // 이벤트 위임: 해당 클래스 이름을 가진 가장 가까운 상위요소
+    if(e.target.dataset.url){
+      window.router(e.target.dataset.url, {rendorDOMId:'root'})
+    }else{
+      console.warn("No link property on draw function of Button")
+    }
   }
 
-  function handleMouseOver(){
-    const { hoverColor, hoverTextColor, hoverWidth } = props.style
+  function handleMouseOver(e){
+    console.log("hover")
+
+    const { hoverWidth } = props.style
     const d = defaultStyle
-    this.style.backgroundColor = hoverColor? hoverColor: d.hoverColor
-    this.style.color = hoverTextColor? hoverTextColor: d.hoverTextColor
-    this.closest('.nav-container').style.width = hoverWidth? hoverWidth: d.hoverWidth
+    changeStyle(this, "width", hoverWidth, d.hoverWidth)
+
+    const quizText = `
+      <div class="nav-menu-text">Quiz</div>
+      <div class="nav-menu-guide">solve vocaburary</div>
+    `
+    const scoreText = `
+      <div class="nav-menu-text">Score</div>
+      <div class="nav-menu-guide">how many you get right</div>
+    `
+    const dictionaryText = `
+      <div class="nav-menu-text">Dictionary</div>
+      <div class="nav-menu-guide">view words you added</div>
+    `
+    // update({ quizText, scoreText, dictionaryText })
+
+    // console.log(this)
+    // const { hoverWidth, hoverColor, hoverTextColor } = props.style
+    // const d = defaultStyle
+    
+    // changeStyle(e.target.closest('.nav-menu-item'), "backgroundColor", hoverColor, d.hoverColor)
+    // changeStyle(e.target.closest('.nav-menu-item'), "color", hoverTextColor, d.hoverTextColor)
+
+    // changeStyle(this.closest('#nav-container'), "width", hoverWidth, d.hoverWidth)
+    // console.log(this.closest('#nav-container'))
+    // changeStyle(this, 'display', 'block', null)
+
+    // Array.from(document.getElementsByClassName('.nav-menu-text')).forEach(el=>{
+    //   changeStyle(el, "visibility", "visible", null)
+    // })
+
+    // console.log(this.closest('.nav-container').offsetWidth)
+    // changeVisibilityOfText(this.closest('.nav-container').offsetWidth, this.closest('.nav-menu'))
   }
 
-  function handleMouseLeave(){
-    const { width, bgColor, textColor } = props.style
+  function handleMouseLeave(e){
+    console.log("leave")
+
+    const { width } = props.style
     const d = defaultStyle
-    this.style.backgroundColor = bgColor? bgColor: d.bgColor
-    this.style.color = textColor? textColor: d.textColor
-    this.closest('.nav-container').style.width = width? width: d.width
+    changeStyle(this, "width", width, d.width)
+
+    const quizText = `
+      <div></div>
+    `
+    const scoreText = `
+      <div></div>
+    `
+    const dictionaryText = `
+      <div></div>
+    `
+    
+    // update({ quizText, scoreText, dictionaryText })
+
+    // console.log(e.target)
+    
+    // changeStyle(e.target.closest('.nav-menu-item'), "backgroundColor", bgColor, d.bgColor)
+    // changeStyle(e.target.closest('.nav-menu-item'), "color", textColor, d.textColor)
+    
+    // changeStyle(this.closest('#nav-container'), "width", width, d.width)
+    // console.log(this.closest('.nav-menu-item'))
+
+  
+    // changeStyle(this, 'display', 'none', null)
+
+    // Array.from(document.getElementsByClassName('.nav-menu-text')).forEach(el=>{
+    //   el.changeStyle(el, "visibility", "hidden", null)
+    // })
+
+    // console.log(this.closest('.nav-container').offsetWidth)
+    // changeVisibilityOfText(this.closest('.nav-container').offsetWidth, this.closest('.nav-menu'))
   }
 
   function init(properties){
@@ -53,22 +145,10 @@ const Nav=(function(){
     const { style } = props
     const { width, height, bgColor, textColor } = style
     const d = defaultStyle
-    return (`<div class="nav-container" 
+    return (`<div id="nav-container" class="nav-container" 
                   style="width:${width?width:d.width};height:${height?height:d.height};
                   background-color:${bgColor?bgColor:d.bgColor};color:${textColor?textColor:d.textColor};">
               <div id="nav-menu" class="nav-menu">
-                <div class="nav-menu-item" data-url="/">
-                  <div class="nav-menu-text">Quiz</div>
-                  <div class="nav-menu-guide">solve vocaburary</div>
-                </div>
-                <div class="nav-menu-item" data-url="/score">
-                  <div class="nav-menu-text">Score</div>
-                  <div class="nav-menu-guide">how many you get right</div>
-                </div>
-                <div class="nav-menu-item" data-url="/dictionary">
-                  <div class="nav-menu-text">Dictionary</div>
-                  <div class="nav-menu-guide">view words you added</div>
-                </div>
               </div>
             </div>`)
   }
@@ -77,12 +157,39 @@ const Nav=(function(){
     const renderPosition=document.getElementById(props.rendorDOMId)
     renderPosition.innerHTML=template
   }
+
+  function addComponents(){
+    const { quizText, scoreText, dictionaryText } = state
+    console.log(quizText)
+    const { bgColor, hoverColor } = props.style
+    const d = defaultStyle
+    
+    const quizBtn = Button()
+    quizBtn.draw({rendorDOMId: "nav-menu", uuid: keys[0], link: "/", onClick: navigate,
+                  style: {width: "100%", height: "calc(100%/3)", bgColor: `${bgColor?bgColor:d.bgColor}`, 
+                  hoverColor: `${hoverColor?hoverColor:d.hoverColor}`, text: quizText, borderRadius: "0px"}})
+
+    const scoreBtn = Button()
+    scoreBtn.draw({rendorDOMId: "nav-menu", uuid: keys[1], link: "/score", onClick: navigate, 
+                  style: {width: "100%", height: "calc(100%/3)", bgColor: `${bgColor?bgColor:d.bgColor}`, 
+                  hoverColor: `${hoverColor?hoverColor:d.hoverColor}`, text: scoreText, borderRadius: "0px"}})
+                  
+    const dictionaryBtn = Button()
+    dictionaryBtn.draw({rendorDOMId: "nav-menu", uuid: keys[2], link: "/dictionary", onClick: navigate, 
+                  style: {width: "100%", height: "calc(100%/3)", bgColor: `${bgColor?bgColor:d.bgColor}`, 
+                  hoverColor: `${hoverColor?hoverColor:d.hoverColor}`, text: dictionaryText, borderRadius: "0px"}})
+
+  }
+
   function addHandlers(){
-    document.getElementById('nav-menu').addEventListener('click', navigate)
-    Array.from(document.getElementsByClassName('nav-menu-item')).forEach(el=>{
-      el.addEventListener('mouseover', handleMouseOver)
-      el.addEventListener('mouseleave', handleMouseLeave)
-    })
+    // document.getElementById('nav-menu').addEventListener('click', navigate)
+    document.getElementById('nav-container').addEventListener('mouseover', handleMouseOver)
+    document.getElementById('nav-container').addEventListener('mouseleave', handleMouseLeave)
+
+    // Array.from(document.getElementsByClassName('nav-menu-item')).forEach(el=>{
+    //   el.addEventListener('mouseover', handleMouseOver)
+    //   el.addEventListener('mouseleave', handleMouseLeave)
+    // })
   }
 
   function doSomethingAfterRendering(callback){
@@ -91,6 +198,7 @@ const Nav=(function(){
   function draw(properties){
     init(properties)
     render()
+    addComponents()
     addHandlers()
     doSomethingAfterRendering(() => console.log("Nav mounted!")) 
 } 

@@ -1,3 +1,5 @@
+import changeStyle from "../lib/changeStyle.js"
+
 const Button=function(){
   "use strict"
 
@@ -14,11 +16,22 @@ const Button=function(){
     textSize: '18px',
     bgColor:'rgb(158,158,158)',
     textColor:'white',
+    border: 'none',
     borderRadius:'5px',
     text:"button",
     hoverColor: 'gray',
     hoverTextColor: 'white'
   } 
+
+  // 사용자 함수
+  function isDisabled(){
+    const { disabled } = props
+    return (disabled && (disabled === true || disabled === "true"))
+  }
+  function setLink(){
+    const { link } = props
+    return link?`data-url=${link}`: ""
+  }
 
   function update(newData){
     state={...state, ...newData}
@@ -40,15 +53,15 @@ const Button=function(){
   function handleMouseOver(){
     const { hoverColor, hoverTextColor } = props.style
     const d = defaultStyle
-    this.style.backgroundColor = hoverColor? hoverColor: d.hoverColor
-    this.style.color = hoverTextColor? hoverTextColor: d.hoverTextColor
+    changeStyle(this, "backgroundColor", hoverColor, d.hoverColor)
+    changeStyle(this, "color", hoverTextColor, d.hoverTextColor)
   }
 
   function handleMouseLeave(){
     const { bgColor, textColor } = props.style
     const d = defaultStyle
-    this.style.backgroundColor = bgColor? bgColor: d.bgColor
-    this.style.color = textColor? textColor: d.textColor
+    changeStyle(this, "backgroundColor", bgColor, d.bgColor)
+    changeStyle(this, "color", textColor, d.textColor)
   }
 
   function init(properties){
@@ -59,12 +72,12 @@ const Button=function(){
   }
   function getTemplete(){
     const { uuid, style } = props 
-    const { width, height, bgColor, textColor, borderRadius, text, textSize } = style 
+    const { width, height, bgColor, textColor, border, borderRadius, text, textSize } = style
     const d = defaultStyle // 변수명이 너무 길어서 약자로 변경함
-    return (`<button class="button-el" id="${uuid}"
+    return (`<button class="button-el" id="${uuid}" ${isDisabled()? "disabled": ""} ${setLink()}
               style="width: ${width?width:d.width};height:${height?height:d.height};font-size:${textSize?textSize:d.textSize};
-              background-color:${bgColor?bgColor:d.bgColor};color:${textColor?textColor:d.textColor};
-              border-radius:${borderRadius?borderRadius:d.borderRadius}">
+              background-color:${bgColor?bgColor:d.bgColor};color:${textColor?textColor:d.textColor};opacity:${isDisabled()? 0.3: 1};
+              border:${border?border:d.border};border-radius:${borderRadius?borderRadius:d.borderRadius}">
               ${text?text:d.text}</button>`)
   }
   // innerHTML += template 문제
@@ -78,9 +91,9 @@ const Button=function(){
   }
   function addHandlers(){
     const { uuid } = props
-    document.getElementById(`${uuid}`).addEventListener('click', handleClick)
-    document.getElementById(`${uuid}`).addEventListener('mouseover', handleMouseOver)
-    document.getElementById(`${uuid}`).addEventListener('mouseleave', handleMouseLeave)
+    document.getElementById(uuid).addEventListener('click', handleClick)
+    document.getElementById(uuid).addEventListener('mouseover', handleMouseOver)
+    document.getElementById(uuid).addEventListener('mouseleave', handleMouseLeave)
   }
 
   function doSomethingAfterRendering(callback){
